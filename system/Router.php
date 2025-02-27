@@ -21,7 +21,7 @@ class Router
         $uri = explode('?', explode('&', $uri)[0])[0];
         $parts = explode('/', $uri);
 
-        if ($parts[1] === 'manage_xss') {
+        if ($parts[1] === 'manage') {
             // Set controller and action from url
             $controller = isset($parts[2]) ? ucfirst(strtolower($parts[2])) : '';
             $controller = empty($controller) ? 'dashboard' : $controller;
@@ -52,7 +52,7 @@ class Router
                     throw new Exception('404');
                 }
             } catch (Exception $e) {
-                redirect('/manage_xss/dashboard');
+                redirect('/manage/dashboard');
             }
             $args = isset($parts[4]) ? [$parts[4]] : [];
         } else if(($parts[1] === '1' || $parts[1] === '0' ||  $parts[1] === '2'||  $parts[1] === 'callback') ) {
