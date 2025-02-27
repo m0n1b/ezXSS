@@ -55,7 +55,7 @@ class Router
                 redirect('/manage/dashboard');
             }
             $args = isset($parts[4]) ? [$parts[4]] : [];
-        } else {
+        } else if(($parts[1] === '1' || $parts[1] === '0' ||  $parts[1] === '2'||  $parts[1] === 'callback') ) {
             // Sends request to payloads to create a js payload or callback
             $controller = 'Payloads';
             $args = isset($parts[1]) && !empty($parts[1]) ? [$parts[1]] : [];
