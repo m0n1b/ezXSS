@@ -101,7 +101,7 @@ class Payloads extends Controller
 
         // Check method
         if (!$this->isPOST()) {
-            return 'github.com/ssl/ezXSS';
+            return '';
         }
 
         // Decode the JSON or form data
@@ -111,7 +111,7 @@ class Payloads extends Controller
             $data = (object)$_POST;
             
             if (empty($data) || !is_object($data)) {
-                return 'github.com/ssl/ezXSS';
+                return '';
             }
         }
 
@@ -133,7 +133,7 @@ class Payloads extends Controller
         $data->{'user-agent'} = substr($data->{'user-agent'} ?? '', 0, 500);
 
         if(empty($data->payload)) {
-            return 'github.com/ssl/ezXSS';
+            return '';
         }
 
         // Check black and whitelist
@@ -150,7 +150,7 @@ class Payloads extends Controller
             if (strpos($blockedDomain, '*') !== false) {
                 $blockedDomain = str_replace('*', '(.*)', $blockedDomain);
                 if (preg_match('/^' . $blockedDomain . '$/', $data->origin)) {
-                    return 'github.com/ssl/ezXSS';
+                    return '';
                 }
             }
         }
@@ -170,7 +170,7 @@ class Payloads extends Controller
                 }
             }
             if (!$foundWhitelist) {
-                return 'github.com/ssl/ezXSS';
+                return '';
             }
         }
 
@@ -185,7 +185,7 @@ class Payloads extends Controller
             $searchId = $this->model('Report')->searchForDublicates($data->cookies ?? '', $data->origin, $data->referer, $data->uri, $data->{'user-agent'}, $data->dom ?? '', $data->ip);
             if ($searchId !== false) {
                 if ($this->model('Setting')->get('filter-save') == 0 && $this->model('Setting')->get('filter-alert') == 0) {
-                    return 'github.com/ssl/ezXSS';
+                    return '';
                 } else {
                     $doubleReport = $searchId;
                 }
@@ -258,7 +258,7 @@ class Payloads extends Controller
             }
         }
 
-        return 'github.com/ssl/ezXSS';
+        return '';
     }
 
     /**
