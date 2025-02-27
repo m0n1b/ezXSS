@@ -145,7 +145,7 @@ class Payloads extends Controller
         // Check for blacklisted domains
         foreach ($blacklistDomains as $blockedDomain) {
             if ($data->origin !== '' && $data->origin == $blockedDomain) {
-                return 'github.com/ssl/ezXSS';
+                return '';
             }
             if (strpos($blockedDomain, '*') !== false) {
                 $blockedDomain = str_replace('*', '(.*)', $blockedDomain);
